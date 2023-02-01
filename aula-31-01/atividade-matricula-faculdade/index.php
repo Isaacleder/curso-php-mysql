@@ -17,9 +17,6 @@ Para isso use como modelo o projeto atual de matricula, mas crie uma nova pasta 
 de matricula da faculdade de nome 'matriculafaculdade' e poste no seu github apos acabar.
 ";
 
-// echo $enunciado;
-
-
 $links = '<div class="links">
 <a href="matricula.php">Preencher Ficha de matricula</a>
 <a href="listamatriculados.json">Listar matriculados</a>
