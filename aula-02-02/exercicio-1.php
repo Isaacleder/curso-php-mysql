@@ -44,11 +44,27 @@ class Calculadora {
 
 }
 
+class CalculadoraCientifica extends Calculadora {
+    public function fatorial(){
+        $resultado = 1;
+            for($i = $this->valor1; $i > 0; $i--){
+                $resultado = $resultado * $i;
+
+            }
+            return $resultado;
+    }
+}
+
 $oCalculadora = new Calculadora;
 $oCalculadora->valor1 = 10;
 $oCalculadora->valor2 = 10;
+
+$oCalculadoraCientifica = new CalculadoraCientifica;
+$oCalculadoraCientifica->valor1 = 10;
+$oCalculadoraCientifica->valor2 = 10;
 
 echo 'soma: ' . $oCalculadora->somar() . '<br>';
 echo 'subtracao: ' . $oCalculadora->subtracao() . '<br>';
 echo 'divisao: ' . $oCalculadora->divisao() . '<br>';
 echo 'multiplicaçao: ' . $oCalculadora->multiplicaçao() . '<br>';
+echo 'fatorial: ' . $oCalculadoraCientifica->fatorial() . '<br>';
