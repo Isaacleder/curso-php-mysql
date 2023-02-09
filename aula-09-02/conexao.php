@@ -14,5 +14,9 @@ function getConexao(){
 
     $pdo->exec($query);
 
+    $query = "CREATE TABLE IF NOT EXISTS cliente (cliente_id INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, nome TEXT, telefone TEXT, email TEXT, cidade TEXT)";
+
+    $pdo->exec($query);
+
     return $pdo;
 }
