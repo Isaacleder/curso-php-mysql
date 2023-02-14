@@ -64,57 +64,62 @@ function buscaDadosAlteracao(){
 }
 
 function executaAlteracao(){
+    // continuar daqui...
+    // ADICIONAR ACAO DE INCLUIR, LISTAR E LIMPAR CAMPOS NA PARTE DE CIMA DA CONSULTA DA TABELA
+
+    // CRIAR TELA DE PRODUTOS E TELA DE VENDAS SE NECESSARIO...
+    // ADICIONAR ORIENTACAO A OBJETOS
 
     $registro = json_decode($_POST["cliente"], true);
 
     /** @var PDO $pdo */
     $pdo = getConexao();
-    
+
     $query = "UPDATE `cliente` SET 
-    `nome` = :nome,
-    `telefone` = :telefone, 
-    `email` = :email, 
-    `cidade` = :cidade 
-    WHERE `cliente_id` = :cliente_id";
+                     `nome`     = :nome, 
+                     `telefone` = :telefone, 
+                     `email`    = :email, 
+                     `cidade`   = :cidade 
+             WHERE `cliente_id` = :cliente_id";
 
     $stmt = $pdo->prepare($query);
-    
+
     $stmt->bindParam(':nome'      , $registro['nome']);
     $stmt->bindParam(':telefone'  , $registro['telefone']);
     $stmt->bindParam(':email'     , $registro['email']);
-    $stmt->bindParam(':cidade'     , $registro['cidade']);
+    $stmt->bindParam(':cidade'    , $registro['cidade']);
     $stmt->bindParam(':cliente_id', $registro['cliente_id']);
 
     $stmt->execute();
-    
+
     $stmt = null;
     $pdo = null;
-    
+
     echo json_encode($registro);
 }
+
 function executaInclusao(){
 
     $registro = json_decode($_POST["cliente"], true);
 
     /** @var PDO $pdo */
     $pdo = getConexao();
-    
-    $query = "INSERT INTO `contato` (nome, telefone, email, cidade)
-    VALUES(:nome, :telefone, :email, :cidade)";
+
+    $query = "INSERT INTO `cliente` (nome, telefone, email, cidade) 
+                    VALUES (:nome, :telefone, :email, :cidade)";
 
     $stmt = $pdo->prepare($query);
-    
-    $stmt->bindParam(':nome'      , $registro['nome']);
-    $stmt->bindParam(':telefone'  , $registro['telefone']);
-    $stmt->bindParam(':email'     , $registro['email']);
-    $stmt->bindParam(':cidade'     , $registro['cidade']);
-    $stmt->bindParam(':cliente_id', $registro['cliente_id']);
+
+    $stmt->bindParam(':nome'    , $registro['nome']);
+    $stmt->bindParam(':telefone', $registro['telefone']);
+    $stmt->bindParam(':email'   , $registro['email']);
+    $stmt->bindParam(':cidade'  , $registro['cidade']);
 
     $stmt->execute();
-    
+
     $stmt = null;
     $pdo = null;
-    
+
     echo json_encode($registro);
 }
 

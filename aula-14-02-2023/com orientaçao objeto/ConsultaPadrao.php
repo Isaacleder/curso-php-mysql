@@ -5,6 +5,7 @@ abstract class ConsultaPadrao {
 
     protected abstract function getColunasTabela();
     protected abstract function getModalDados();
+    protected abstract function getColunasCabecalhoTabela();
 
     public function __construct(){
         $this->carregaDados();
