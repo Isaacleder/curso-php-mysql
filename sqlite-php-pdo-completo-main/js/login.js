@@ -8,12 +8,16 @@ const closeModalLogin = () => {
 };
 
 const updateDadosLogin = () => {
+    // Logar no sistema
     console.log("salvando dados de login");
+
+    // usuario e senha confere
+    window.location.href="Home.php?login=USUARIO_LOGADO";
 };
 
 // Acoes do modal login
-document.getElementById('loginSistema')
-.addEventListener('click', openModalLogin);
+// document.getElementById('loginSistema')
+//.addEventListener('click', openModalLogin);
 
 // Eventos
 document.getElementById('cancelarLogin')
