@@ -17,7 +17,7 @@ abstract class ManutencaoPadrao {
 
     protected function executaConsulta(){
         $aDados = $this->getDadosFromBancoDados();
-
+        
         echo json_encode($aDados);
     }
 
@@ -41,17 +41,14 @@ abstract class ManutencaoPadrao {
         $pdo = null;
     }
 
-
     protected function getDadosFromBancoDados($chave_id = false){
         /** @var PDO $pdo */
         $pdo = getConexao();
-
-        $query = "SELECT * FROM `" . $this->getNomeTabela() . "`";
-        if($chave_id){
-            $query = "SELECT * FROM `" . $this->getNomeTabela() . "` WHERE `" . $this->getNomeColunaChave() . "` = " . $chave_id;
-        }
-
+    
+        $query = $this->getQueryPadrao($chave_id);
+        
         $stmt = $pdo->prepare($query);
+        
         $stmt->execute();
 
         $aDados = array();
@@ -92,5 +89,38 @@ abstract class ManutencaoPadrao {
         } else {
             echo json_encode(array("mensagem" => "Funcao invalida!"));
         }
+    }
+    
+    protected function getQueryPadrao($chave_id = false){
+        if($chave_id){
+            $query = "SELECT * FROM `" . $this->getNomeTabela() . "` WHERE `" . $this->getNomeColunaChave() . "` = " . $chave_id;
+            
+            return $query;
+        }
+        
+        $campo    = isset($_POST["campo"]) ? $_POST["campo"] : false;
+        $operador = isset($_POST["operador"]) ? $_POST["operador"] : false;
+        $valor    = isset($_POST["valor"]) ? $_POST["valor"] : false;
+    
+        $query = "SELECT * FROM `" . $this->getNomeTabela() . "`";
+        if ($campo && $operador && $valor){
+            if($operador == "maior"){
+                $operador = ">";
+            } else if($operador == "menor"){
+                $operador = "<";
+            } else if($operador == "igual"){
+                // Se for a chave e um campo inteiro
+                if($campo == $this->getNomeColunaChave()){
+                    $operador = "=";
+                } else {
+                    $operador = " like ";
+                    $valor = "'%" . $valor . "%'";
+                }
+            }
+    
+            $query = "SELECT * FROM `" . $this->getNomeTabela() . "` WHERE " . $campo . $operador . $valor;
+        }
+        
+        return $query;
     }
 }

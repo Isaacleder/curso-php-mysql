@@ -96,6 +96,11 @@ class ConsultaContato extends ConsultaPadrao {
 
         return $html_tabela;
     }
+    
+    // NOVA PROGRAMACAO FILTROS
+    protected function getColunasConsultaTabela(){
+        return array("contato_id", "nome", "sobrenome", "endereco", "telefone", "email", "nascimento");
+    }
 }
 // 187 linhas
 new ConsultaContato();
