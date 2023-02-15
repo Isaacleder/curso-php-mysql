@@ -9,13 +9,12 @@ abstract class ConsultaPadrao {
     protected abstract function getColunasConsultaTabela();
 
     public function __construct(){
-        $validaLogin = false;
-        
-        $this->carregaDados();
-        
-        if(!$validaLogin){
-            sleep(3);
-            echo '<script>openModalLogin()</script>';
+        $logado = isset($_GET["login"]) ?  (int)$_GET["login"] : 999;
+        if($logado == "USUARIO_LOGADO"){
+            $this->carregaDados();
+        } else {
+            // redirecionar para pagina de login
+            header("Location: login.php");
         }
     }
 
@@ -132,7 +131,7 @@ abstract class ConsultaPadrao {
                             <input type="password" id="senha" class="modal-field" placeholder="Senha..." required value="123456">
                         </form>
                         <footer class="modal-footer" id="modal-footer-login" style="width: 100%">
-                            <button id="salvarLogin" class="button green">Salvar</button>
+                            <button id="salvarLogin" class="button green">Entrar</button>
                             <button id="cancelarLogin" class="button blue">Cancelar</button>
                         </footer>
                     </div>
@@ -150,13 +149,19 @@ abstract class ConsultaPadrao {
     // FUNCOES ADICIONADAS NOVAS.....
     // FUNCOES ADICIONADAS NOVAS.....
     protected function getHeaders(){
+        $logado = isset($_GET["login"]) ?  (int)$_GET["login"] : 999;
+        $usuario_logado = "";
+        if($logado == "USUARIO_LOGADO"){
+            $usuario_logado = "?login=USUARIO_LOGADO";
+        }
+
         return "<header class=\"header\">
                     <ul class=\"menu\">
                         <li><a href='Home.php'>Home</a></li>
-                        <li><a href='ConsultaCliente.php'>Clientes</a></li>
-                        <li><a href='ConsultaContato.php'>Contatos</a></li>
+                        <li><a href='ConsultaCliente.php" . $usuario_logado . "'>Clientes</a></li>
+                        <li><a href='ConsultaContato.php" . $usuario_logado . "'>Contatos</a></li>
                         <!--<li><a href='consulta-produto-simples.php'>Produtos</a></li>
-                        <li><a href='consulta-venda-simples.php'>Vendas</a></li>
+                        <li><a href='consulta-venda-simples.php'>Vendas</a></li>                        
                         <li>Config
                             <ul>
                                 <li>Admin</li>
