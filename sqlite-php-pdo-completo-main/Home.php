@@ -30,6 +30,10 @@ class Home extends ConsultaPadrao {
     protected function getFiltrosConsulta() {
         return "";
     }
+
+    protected function getScriptFooter(){
+        return '';
+    }
 }
 
 new Home();

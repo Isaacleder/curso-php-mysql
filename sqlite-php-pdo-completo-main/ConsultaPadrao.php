@@ -9,7 +9,7 @@ abstract class ConsultaPadrao {
     protected abstract function getColunasConsultaTabela();
 
     public function __construct(){
-        $logado = isset($_GET["login"]) ?  (int)$_GET["login"] : 999;
+        $logado = isset($_GET["login"]) ? $_GET["login"] : 999;
         if($logado == "USUARIO_LOGADO"){
             $this->carregaDados();
         } else {
@@ -126,7 +126,7 @@ abstract class ConsultaPadrao {
                             <span class="modal-close" id="modalCloseLogin">&#10006;</span>
                         </header>
                         <form id="form" class="modal-form" style="justify-content: center;">
-                            <input type="email" id="email" class="modal-field" placeholder="E-mail..." required value="gelvazio@email.com">
+                            <input type="email" id="emailLogin" class="modal-field" placeholder="E-mail..." required value="gelvazio@email.com">
                             
                             <input type="password" id="senha" class="modal-field" placeholder="Senha..." required value="123456">
                         </form>
@@ -149,7 +149,7 @@ abstract class ConsultaPadrao {
     // FUNCOES ADICIONADAS NOVAS.....
     // FUNCOES ADICIONADAS NOVAS.....
     protected function getHeaders(){
-        $logado = isset($_GET["login"]) ?  (int)$_GET["login"] : 999;
+        $logado = isset($_GET["login"]) ? $_GET["login"] : 999;
         $usuario_logado = "";
         if($logado == "USUARIO_LOGADO"){
             $usuario_logado = "?login=USUARIO_LOGADO";
@@ -157,7 +157,7 @@ abstract class ConsultaPadrao {
 
         return "<header class=\"header\">
                     <ul class=\"menu\">
-                        <li><a href='Home.php'>Home</a></li>
+                        <li><a href='Home.php" . $usuario_logado . "'>Home</a></li>
                         <li><a href='ConsultaCliente.php" . $usuario_logado . "'>Clientes</a></li>
                         <li><a href='ConsultaContato.php" . $usuario_logado . "'>Contatos</a></li>
                         <!--<li><a href='consulta-produto-simples.php'>Produtos</a></li>
@@ -169,6 +169,7 @@ abstract class ConsultaPadrao {
                                 <li>Relatorios</li>
                             </ul>
                         </li> -->
+                        <li><a href='login.php'>Sair</a></li>
                     </ul>
                 </header>";
     }
